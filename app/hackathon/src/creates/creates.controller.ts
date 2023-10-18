@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseInterceptors, UploadedFile, Patch, Query } from '@nestjs/common';
 import { CreateCreateDto } from './dto/create-create.dto';
-import { Create } from './create.model';
+import { Create } from './creates.model';
 import { makeURL } from 'src/filewithlinkenc';
 import { MailService } from 'src/mailsending';
 import { CreatesService } from './creates.service';

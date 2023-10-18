@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Create } from './create.model';
+import { Create } from './creates.model';
 import { CreateCreateDto } from './dto/create-create.dto';
 
 @Injectable()
