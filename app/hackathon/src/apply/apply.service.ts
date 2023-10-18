@@ -97,7 +97,6 @@ export class ApplyService {
         return appl;
     }
         
-    
 
 }
 
