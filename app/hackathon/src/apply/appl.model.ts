@@ -3,7 +3,7 @@ export interface Appl {
     name: string;
     email: string;
     encryInfo: string;
-    path: string;
+    cv: Express.Multer.File;
     status: ApplStatus;
 }
 

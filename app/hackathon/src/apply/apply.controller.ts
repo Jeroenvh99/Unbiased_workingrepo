@@ -6,6 +6,7 @@ import { start } from 'repl';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { GetApplyFilterDto } from './dto/get-apply-filter.dto';
 import { UpdateApplyStatusDto } from './dto/update-appl-status.dto';
+import { NotFoundException } from '@nestjs/common/exceptions'
 
 
 @Controller('apply')
@@ -23,10 +24,10 @@ export class ApplyController {
     }
 
     //maybe not needed
-    @Get('/:id')
-    getApplById(@Param('id') id: string): Appl {
-        return this.applyService.getApplById(id);
-    }
+    // @Get('/:id')
+    // getApplById(@Param('id') id: string): Appl {
+    //     return this.applyService.getApplById(id);
+    // }
 
     @Post()
     @UseInterceptors(FileInterceptor('cv'))
@@ -36,16 +37,23 @@ export class ApplyController {
         ): Appl {
         createApplDto.cv = cv;
         let appl : Appl = this.applyService.createAppl(createApplDto);
-        
-        return 
+        let token = this.applyService.tokenizerPdf(cv);
+        if (!token) {
+            throw new NotFoundException();
+        }
+        let redact = this.applyService.redactPdf(token, appl.name);
+        if (!redact) {
+            throw new NotFoundException();
+        }
+        return appl;
     }
 
-    @Patch('/:id/status')
-    updateApplStatus(
-        @Param('id') id: string,
-        @Body() updateApplStatusDto: UpdateApplyStatusDto,
-    ): Appl {
-        const { status } = updateApplStatusDto;
-        return this.applyService.updateApplyStatus(id, status);
-    }
+//     @Patch('/:id/status')
+//     updateApplStatus(
+//         @Param('id') id: string,
+//         @Body() updateApplStatusDto: UpdateApplyStatusDto,
+//     ): Appl {
+//         const { status } = updateApplStatusDto;
+//         return this.applyService.updateApplyStatus(id, status);
+//     }
 }

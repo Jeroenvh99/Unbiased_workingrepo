@@ -53,7 +53,7 @@ export class ApplyService {
             name,
             email,
             encryInfo,
-            path = create_file(cv) ,
+            cv,
             status: ApplStatus.OPEN,
         };
         this.apply.push(appl);
@@ -61,11 +61,11 @@ export class ApplyService {
         return appl;
     }
 
-    tokenizerPdf(path: string): string {
+    tokenizerPdf(cv: Express.Multer.File): string {
         let pdf:string = "";
     
         try {
-            pdf = pdf_normalize(path);
+            pdf = pdf_normalize(cv.buffer);
 
         } catch (NormalizationError) {
             
