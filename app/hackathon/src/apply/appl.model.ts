@@ -3,6 +3,7 @@ export interface Appl {
     name: string;
     email: string;
     encryInfo: string;
+    path: string;
     status: ApplStatus;
 }
 
@@ -10,4 +11,5 @@ export enum ApplStatus{
     OPEN = 'OPEN',
     IN_PROGRESS = 'IN_PROGRESS',
     DONE = 'DONE',
+    NOT_PDF = 'NOT_PDF',
 }
