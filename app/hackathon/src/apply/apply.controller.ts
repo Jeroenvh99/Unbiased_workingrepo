@@ -7,7 +7,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { GetApplyFilterDto } from './dto/get-apply-filter.dto';
 import { UpdateApplyStatusDto } from './dto/update-appl-status.dto';
 import { NotFoundException } from '@nestjs/common/exceptions'
-
+import { MailService } from 'src/mailsending';
 
 @Controller('apply')
 export class ApplyController {
@@ -29,11 +29,12 @@ export class ApplyController {
     //     return this.applyService.getApplById(id);
     // }
 
-    @Post()
+    @Post('/:encr')
     @UseInterceptors(FileInterceptor('cv'))
     createAppl( 
         @Body() createApplDto: CreateApplDto, 
-        @UploadedFile() cv: Express.Multer.File
+        @UploadedFile() cv: Express.Multer.File,
+        @Param('encr') encr: string
         ): Appl {
         createApplDto.cv = cv;
         let appl : Appl = this.applyService.createAppl(createApplDto);
@@ -45,6 +46,10 @@ export class ApplyController {
         if (!redact) {
             throw new NotFoundException();
         }
+
+        let send : MailService;
+        let email  = Buffer.from(encr, 'base64').toString('ascii');
+        send.sendUserConfirmation(email.substring(email.lastIndexOf("_")), redact);
         return appl;
     }
 

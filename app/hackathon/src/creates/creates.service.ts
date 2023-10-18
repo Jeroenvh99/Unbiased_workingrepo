@@ -7,12 +7,12 @@ export class CreatesService {
     private creates: Create[] = [];
 
     createCreate(createCreateDto: CreateCreateDto): Create {
-        const { company_name, job, email} = createCreateDto;
+        const { companyName, jobTitle, companyEmail} = createCreateDto;
 
         const create: Create = {
-            company_name,
-            job,
-            email,
+            companyName,
+            jobTitle,
+            companyEmail,
         };
         this.creates.push();
 

@@ -1,5 +1,5 @@
 export interface Create {
-    company_name: string;
-    email: string;
-    job: string;
+    companyName: string;
+    companyEmail: string;
+    jobTitle: string;
 }

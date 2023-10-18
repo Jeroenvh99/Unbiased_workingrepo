@@ -3,8 +3,7 @@ import { ApplyModule } from './apply/apply.module';
 import { CreatesModule } from './creates/creates.module'
 
 @Module({
-  imports: [ApplyModule],
-  imports: [CreatesModule],
+  imports: [ApplyModule, CreatesModule],
 })
 
 export class AppModule {}

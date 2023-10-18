@@ -29,7 +29,7 @@ export class CreatesController {
     createCreate(  @Body() createCreateDto: CreateCreateDto, ): Create {
         let create : Create = this.createsService.createCreate(createCreateDto);
         let send : MailService;
-        send.sendUserConfirmation(create.email, makeURL(create.company_name, create.job, create.email));
+        send.sendUserConfirmation(create.companyEmail, makeURL(create.companyName, create.jobTitle, create.companyEmail));
         return create;
     }
 

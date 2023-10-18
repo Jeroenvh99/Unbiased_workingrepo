@@ -2,9 +2,9 @@ import { IsNotEmpty } from "class-validator";
 
 export class CreateCreateDto{
     @IsNotEmpty()
-    company_name: string;
+    companyName: string;
     @IsNotEmpty()
-    email: string;
+    companyEmail: string;
     @IsNotEmpty()
-    job: string;
+    jobTitle: string;
 }
